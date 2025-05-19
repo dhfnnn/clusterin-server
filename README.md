@@ -1,4 +1,33 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![Logo](https://www.image.my/images/2025/05/20/logo-clusterin-only.png)
+
+
+# Mulai Project
+
+#### Disini ga lagi pakai "php artisan" tapi "php ccn"!
+### 
+
+### Konfigurasi Applikasi
+
+Membuat koneksi dan database baru:
+
+```bash
+  php ccn buat:db username password database
+```
+Jika muncul "Mau sekalian migrate?"
+
+pilih "yes" biar sekalian jalanin migrate-nya.
+
+
+### 
+Menjalankan Aplikasi: 
+
+```bash
+  php ccn serv
+```
+
+
+
+<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -63,4 +92,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->

@@ -1,4 +1,5 @@
-![Logo](https://www.image.my/images/2025/05/20/logo-clusterin-only.png)
+<p align="center"><a href="" target="_blank"><img src="https://www.image.my/images/2025/05/20/logo-clusterin-only.png" width="400" alt="Clusterin Logo"></a></p>
+
 
 
 # Mulai Project

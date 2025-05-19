@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Quicksand:wght@300..700&family=Tagesschrift&display=swap');
+
+body {
+    font-family: inter;
+    width: 100%;
+    min-height: 100vh;
+    background: rgb(21, 21, 21);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar{
+    width: 100%;
+    background: rgb(37, 35, 35);
+    padding: 20px;
+}
+.navbar a{
+    color: white;
+    font-weight: 600;
+}
+
+.doc{
+    margin-top: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+.doc .isi{
+    background: rgb(39, 31, 31);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.doc .isi #part{
+    font-weight: 600;
+    font-size: 17px;
+}
+.doc .isi .list{
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.444);
+    padding-bottom: 10px;
+}
+.doc .isi #ket{
+    font-size: 14px;
+    color: #ffffffc9;
+    margin-bottom: 5px;
+}
+.doc .isi #endpoint{
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.doc .isi #url{
+    background: rgb(21, 21, 21);
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+.doc .isi #method{
+    background: rgb(209, 111, 6);
+    padding: 3px 10px;
+    border-radius: 5px;
+    width: 70px;
+    text-align: center;
+}
+.doc .isi table{
+    width: 100%;
+    margin-top: 10px;
+}
+.doc .isi table th{
+    color: #ffffffe3;
+    font-weight: 500;
+}
+.doc .isi table td{
+    color: #ffffffc9;
+}

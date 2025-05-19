@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi</title>
+    <link rel="stylesheet" href="../css/dokumentasi.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="text-xl">Clusterin</a>
+    </div>
+
+    <div class="doc">
+        <div class="isi">
+            <p id="part">Account</p>
+            <div class="list">
+                <p id="ket">Mengambil semua data Account :</p>
+                <p id="endpoint"><span id="url">/ccn/account</span><span id="method">[GET]</span></p>
+            </div>
+            <div class="list">
+                <p id="ket">Ambil data Account berdasarkan user_token :</p>
+                <p id="endpoint"><span id="url">/ccn/account/search</span><span id="method">[POST]</span></p>
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th>Paramater</th>
+                                <th align="center">Tipe Data</th>
+                                <th align="center">Wajib</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>user_token</td>
+                                <td align="center">string</td>
+                                <td align="center">ya</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list">
+                <p id="ket">Pendaftaran Account :</p>
+                <p id="endpoint"><span id="url">/ccn/account/create</span><span id="method">[POST]</span></p>
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th>Paramater</th>
+                                <th align="center">Tipe Data</th>
+                                <th align="center">Wajib</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>fullname</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>address</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>whatsapp</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>nik</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>password</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>role</td>
+                                <td align="center">enum[RT,Satpam,Warga]</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>status_account</td>
+                                <td align="center">enum[Pending,Active,Inactive]</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list">
+                <p id="ket">Update Account :</p>
+                <p id="endpoint"><span id="url">/ccn/account/update/{user_token}</span><span id="method">[POST]</span></p>
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th>Paramater</th>
+                                <th align="center">Tipe Data</th>
+                                <th align="center">Wajib</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>fullname</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>address</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>whatsapp</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>nik</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>password</td>
+                                <td align="center">string</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>role</td>
+                                <td align="center">enum[RT,Satpam,Warga]</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                            <tr>
+                                <td>status_account</td>
+                                <td align="center">enum[Pending,Active,Inactive]</td>
+                                <td align="center">Ya</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list">
+                <p id="ket">Menghapus data Account :</p>
+                <p id="endpoint"><span id="url">/ccn/account/delete/{user_token}</span><span id="method">[GET]</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

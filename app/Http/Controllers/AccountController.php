@@ -14,15 +14,17 @@ class AccountController extends Controller
     public function read(Request $request)
     {
         $request->validate([
-            'user_token' => 'nullable|string'
+            'user_token' => 'nullable|string',
         ]);
 
         $query = Account::query();
         if ($request->has('user_token') && $request->user_token) {
             $query->where('user_token', $request->user_token);
+            $data = $query->first();
         }
-
-        $data = $query->get();
+        else{
+            $data = $query->get();
+        }
         
         if (!$data) {
             return response()->json([
@@ -36,6 +38,35 @@ class AccountController extends Controller
             'message' => 'Account Berhasil Didapatkan',
             'data' => $data
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        $rule = [
+            'nik' => 'required|string',
+            'password' => 'required|string'
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()
+            ], 401);
+        }
+
+        $data = Account::where('nik', $request->nik)->where('password', md5($request->password))->first();
+        if (!$data){
+            return response()->json([
+                'success' => false,
+                'message' => 'Account Tidak Terdaftar'
+            ], 401);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => "Account Berhasil Login",
+            'data' => $data
+        ], 200);
     }
 
     /**
@@ -66,7 +97,7 @@ class AccountController extends Controller
         $data->address = $request->address;
         $data->whatsapp = $request->whatsapp;
         $data->nik = $request->nik;
-        $data->password = bcrypt($request->password);
+        $data->password = md5($request->password);
         $data->role = $request->role;
         $data->status_account = $request->status_account;
         $data->save();

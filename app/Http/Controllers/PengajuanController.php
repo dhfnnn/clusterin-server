@@ -30,8 +30,8 @@ class PengajuanController extends Controller
             $query->where('status', $request->status);
         }
 
-        $data = $query->get();
-        
+        $data = $query->OrderBy('id', 'desc')->get();
+
         if (!$data) {
             return response()->json([
                 'success' => false,
@@ -39,6 +39,14 @@ class PengajuanController extends Controller
                 'data' => null
             ]);
         }
+        if ($data->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak Ada Pengajuan yang Ditemukan',
+                'data' => null
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Pengajuan Berhasil Didapatkan',
@@ -78,7 +86,7 @@ class PengajuanController extends Controller
         $data->reply = $request->reply;
         $data->status = $request->status;
         $data->save();
-        if(!$data) {
+        if (!$data) {
             return response()->json([
                 'success' => false,
                 'message' => "Pengajuan $request->judul, Gagal Ditambahkan",
@@ -101,7 +109,7 @@ class PengajuanController extends Controller
             'id' => 'required|string'
         ];
         $validators = Validator::make($request->all(), $rules);
-        if($validators->fails()) {
+        if ($validators->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Parameter id harus diisi',
@@ -134,7 +142,7 @@ class PengajuanController extends Controller
         $data->reply = $request->reply;
         $data->status = $request->status;
         $data->save();
-        if(!$data) {
+        if (!$data) {
             return response()->json([
                 'success' => false,
                 'message' => "Pengajuan $request->judul, Gagal Diubah",
@@ -154,17 +162,17 @@ class PengajuanController extends Controller
     public function delete(Request $request)
     {
         $data = Pengajuan::where('id', $request->id)->first();
-        if(empty($data)) {
+        if (empty($data)) {
             return response()->json([
                 'success' => false,
                 'message' => "Pengajuan $request->judul, Tidak Ditemukan",
                 'data' => null
             ], 422);
         }
-        
+
         $data->delete();
 
-        if(!$data) {
+        if (!$data) {
             return response()->json([
                 'success' => false,
                 'message' => "Pengajuan $request->judul, Gagal Dihapus",

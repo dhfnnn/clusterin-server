@@ -26,20 +26,21 @@ Route::get('/', function () {
 
 
 // ACCOUNT
-Route::post('account', [AccountController::class, 'read'])->middleware('auth:sanctum');
+Route::get('account', [AccountController::class, 'read']);
+Route::post('account/login', [AccountController::class, 'login']);
 Route::post('account/create', [AccountController::class, 'create']);
 Route::post('account/update', [AccountController::class, 'update'])->middleware('auth:sanctum');
 Route::post('account/delete', [AccountController::class, 'delete'])->middleware('auth:sanctum');
 
 
 // GUEST
-Route::post('guest', [GuestController::class, 'read'])->middleware('auth:sanctum');
+Route::get('guest', [GuestController::class, 'read']);
 Route::post('guest/create', [GuestController::class, 'create'])->middleware('auth:sanctum');
 Route::post('guest/update', [GuestController::class, 'update'])->middleware('auth:sanctum');
 Route::post('guest/delete', [GuestController::class, 'delete'])->middleware('auth:sanctum');
 
 // PENGAJUAN
-Route::post('pengajuan', [PengajuanController::class, 'read'])->middleware('auth:sanctum');
+Route::get('pengajuan', [PengajuanController::class, 'read']);
 Route::post('pengajuan/create', [PengajuanController::class, 'create'])->middleware('auth:sanctum');
 Route::post('pengajuan/update', [PengajuanController::class, 'update'])->middleware('auth:sanctum');
 Route::post('pengajuan/delete', [PengajuanController::class, 'delete'])->middleware('auth:sanctum');

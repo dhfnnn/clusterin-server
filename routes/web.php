@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\web\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/home', [Dashboard::class, 'read']);
+
+Route::get('/login', function () {
+    return view('login');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/dashboard', [Dashboard::class, 'read']);
+Route::get('/dashboard/data', [Dashboard::class, 'read'])->name('dashboard.data');

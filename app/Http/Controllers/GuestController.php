@@ -26,12 +26,19 @@ class GuestController extends Controller
             $query->where('status', $request->status);
         }
 
-        $data = $query->get();
+        $data = $query->orderBy('id', 'desc')->get();
         
         if (!$data) {
             return response()->json([
                 'success' => false,
                 'message' => 'Tamu Gagal Didapatkan',
+                'data' => null
+            ]);
+        }
+        if ($data->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak Ada Tamu yang Ditemukan',
                 'data' => null
             ]);
         }

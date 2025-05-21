@@ -1,0 +1,250 @@
+/*copy code color palette figma pake root*/
+:root {
+    --white: #FFFFFF;
+    --abutulisan: #65625F;
+    --blacktulisan: #65625F;
+    --blackbg: #03081F;
+    --biruBG1: #26374D;
+    --biruBG2: #DDE6ED;
+    --biruAbuMuda: #9DB2BF;
+    --biruabu: #536D82;
+    --anotherblck: #000000;
+    --orange: #FC8A06;
+    --red: #E50014E5;
+    --ijobubble: #19CA4E;
+    --abububble: #C4C4C4;
+    --purpleprofile: #D2DAFF;
+    --pinkprofile: #FFC0DE;
+    --merahprofile: #DA4747DB;
+    --bluetext: #2951D5;
+    --pinkbubble: #DA4790DB;
+    --abubayangan: #53525299;
+    --fwbold: 700;
+    --fwlight: 400;
+    --fwmedium: 600;
+    --fwreguler: 500;
+    --fwsuperlight: 300;
+
+}
+
+/*semua font di body akan menjadi Nunito*/
+body {
+    font-family: "Nunito", sans-serif;
+    color: var(--white);
+    background: var(--biruBG1);
+    margin-bottom: 40;
+    padding-bottom: 50px;
+}
+
+body.bg {
+    background: var(--biruBG2);
+    font-family: "Nunito", sans-serif;
+    color: var(--white);
+    padding-bottom: 50px;
+    margin-bottom: 60px;
+}
+
+.header {
+    font-weight: var(--fwbold);
+    font-size: 30px;
+    margin: 0;
+    color: var(--white);
+}
+
+.header-2 {
+    font-weight: var(--fwbold);
+    font-size: 24px;
+    margin: 0;
+    color: var(--white);
+}
+
+.header-3 {
+    font-weight: var(--fwmedium);
+    font-size: 17px;
+    margin: 0;
+    color: var(--biruBG1);
+
+}
+
+.paragraf-mini {
+    font-weight: var(--fwbold);
+    font-size: 14px;
+    color: white;
+
+    margin: 0;
+}
+
+.paragraf-medium {
+    font-weight: var(--fwbold);
+    font-size: 16px;
+    color: white;
+    margin: 0;
+}
+
+.paragraf-semiMini {
+    font-weight: var(--fwmedium);
+    font-size: 16px;
+    color: white;
+
+}
+
+.btn-primary {
+    padding: 10px 40px 10px 40px;
+    background: var(--white);
+    color: var(--abububble);
+    font-size: 18px;
+    font-weight: var(--fwlight);
+    border: none;
+    border-radius: 16px;
+}
+
+.card {
+    border-radius: 20px 20px 20px 20px;
+}
+
+.card-header {
+    font-family: "Poppins", sans-serif;
+    background: var(--biruBG1);
+    font-size: 13px;
+    font-weight: var(--fwbold);
+    color: var(--white);
+
+}
+
+.card-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: var(--fwmedium);
+    color: var(--biruBG1);
+}
+
+.card-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: var(--fwlight);
+    color: var(--biruBG1);
+}
+
+.badge-status {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 5px;
+    background: var(--biruabu);
+}
+
+.badge-status-diterima {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 5px;
+    background: var(--ijobubble);
+}
+
+.badge-status-ditolak {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 5px;
+    background: var(--red);
+}
+
+/* Hover efek untuk gambar dan link */
+.navbar-hover:hover img,
+.navbar-hover:hover a {
+    color: var(--biruBG1);
+    font-weight: var(--fwbold);
+    transition: all 0.3s ease;
+    filter: brightness(0) saturate(100%) invert(13%) sepia(93%) saturate(1797%) hue-rotate(198deg) brightness(97%) contrast(94%);
+}
+
+/* Aktif (halaman yang sedang dibuka) */
+.navbar-hover.active img,
+.navbar-hover.active a {
+    color: var(--biruBG1);
+    font-weight: var(--fwbold);
+    filter: brightness(0) saturate(100%) invert(13%) sepia(93%) saturate(1797%) hue-rotate(198deg) brightness(97%) contrast(94%);
+}
+
+.navbar-hover.active {
+    background-color: rgba(0, 51, 102, 0.1);
+    /* contoh background */
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.navbar-nav .nav-item:hover img,
+.navbar-nav .nav-item:hover a {
+    transition: all 0.3s ease;
+    font-weight: var(--fwbold);
+}
+
+.nav-status .nav-link {
+    color: white !important;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.nav-status .nav-link:hover {
+    color: white !important;
+}
+
+.nav-status .nav-link.active {
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-status .nav-underline .nav-link.active {
+    border-bottom: 2px solid white;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 18px;
+}
+
+.search-input {
+    padding-left: 40px;
+    border-radius: 12px;
+    border: 1px solid black;
+}
+
+.tombol {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.tombol button {
+    padding: 5px 50px;
+    border-radius: 10px;
+}
+
+.tombol .selesai {
+    background-color: #204051;
+    color: white;
+}
+
+.tombol .cancel {
+    background-color: #C5DFF8;
+    color: #000000;
+}

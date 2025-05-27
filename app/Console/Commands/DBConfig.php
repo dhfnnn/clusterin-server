@@ -11,6 +11,7 @@ class DBConfig extends Command
 {
     protected $signature = 'db';
     protected $description = 'Update DB credentials in .env and create the database if it does not exist';
+    public $requiresConnection = false;
 
     public function handle()
     {
@@ -35,14 +36,7 @@ class DBConfig extends Command
         }
 
         $this->info(' File .env berhasil diperbarui.');
-        $migrate = $this->ask('Mau Sekalian Migrate Database [y/n]');
-        if($migrate == 'y' || $migrate == 'Y') {
-            $this->info('Menjalankan Migrate Database...');
-            $this->call('migrate');
-        }
-        else{
-            $this->info('Okayy, Jangan Lupa migrate Database yaa nanti.');
-        }
+        $this->info(' Jangan lupa jalanin nanti yaa: php ccn migrate');
     }
 
     protected function updateEnv(array $data)
@@ -65,14 +59,15 @@ class DBConfig extends Command
     protected function createDatabaseIfNotExists($host, $port, $dbName, $username, $password)
     {
         try {
-            $dsn = "mysql:host=$host;port=$port";
-            $pdo = new PDO($dsn, $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $dsn = "mysql:host=$host;port=$port;charset=utf8mb4";
+            $pdo = new PDO($dsn, $username, $password, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
 
             $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;");
             return true;
         } catch (PDOException $e) {
-            $this->error($e->getMessage());
+            $this->error("PDO Error: " . $e->getMessage());
             return false;
         }
     }

@@ -109,6 +109,7 @@ class AccountController extends Controller
         } else {
             $ability = ['Warga'];
         }
+        
         $token = $data->createToken('token-based', $ability)->plainTextToken;
         $data->user_token = $token;
         $data->save();

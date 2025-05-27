@@ -13,17 +13,3 @@ use App\Http\Controllers\web\Dashboard;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
-Route::get('/home', [Dashboard::class, 'read']);
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/dashboard', [Dashboard::class, 'read']);
-Route::get('/dashboard/data', [Dashboard::class, 'read'])->name('dashboard.data');

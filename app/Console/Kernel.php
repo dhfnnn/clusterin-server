@@ -25,5 +25,6 @@ class Kernel extends ConsoleKernel
     }
     protected $commands = [
         \App\Console\Commands\DBConfig::class,
+        \App\Console\Commands\JalaninServer::class,
     ];
 }

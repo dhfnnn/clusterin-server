@@ -4,35 +4,54 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use PDO;
+use PDOException;
 
 class DBConfig extends Command
 {
     protected $signature = 'db';
-    protected $description = 'Update DB credentials in .env file';
+    protected $description = 'Update DB credentials in .env and create the database if it does not exist';
 
     public function handle()
     {
-        $dbName = $this->ask('Enter database name (DB_DATABASE)');
-        $dbUser = $this->ask('Enter database username (DB_USERNAME)');
-        $dbPass = $this->secret('Enter database password (DB_PASSWORD)');
+        $dbHost = $this->ask('Database Host', 'localhost');
+        $dbPort = $this->ask('Database Port', '3306');
+        $dbUser = $this->ask('Database username', 'root');
+        $dbPass = $this->ask('Database password', '');
+        $dbName = $this->ask('Database Name');
 
         $this->updateEnv([
+            'DB_HOST' => $dbHost,
+            'DB_PORT' => $dbPort,
             'DB_DATABASE' => $dbName,
             'DB_USERNAME' => $dbUser,
             'DB_PASSWORD' => $dbPass,
         ]);
 
-        $this->info('.env file updated successfully.');
+        if ($this->createDatabaseIfNotExists($dbHost, $dbPort, $dbName, $dbUser, $dbPass)) {
+            $this->info(" Konfigurasi Database Berhasil.");
+        } else {
+            $this->error(" Koneksi ke Database gagal.");
+        }
+
+        $this->info(' File .env berhasil diperbarui.');
+        $migrate = $this->ask('Mau Sekalian Migrate Database [y/n]');
+        if($migrate == 'y' || $migrate == 'Y') {
+            $this->info('Menjalankan Migrate Database...');
+            $this->call('migrate');
+        }
+        else{
+            $this->info('Okayy, Jangan Lupa migrate Database yaa nanti.');
+        }
     }
 
     protected function updateEnv(array $data)
     {
         $envPath = base_path('.env');
-        $envContent = File::get($envPath);
+        $envContent = File::exists($envPath) ? File::get($envPath) : '';
 
         foreach ($data as $key => $value) {
             $pattern = "/^$key=.*/m";
-
             if (preg_match($pattern, $envContent)) {
                 $envContent = preg_replace($pattern, "$key=\"$value\"", $envContent);
             } else {
@@ -41,5 +60,20 @@ class DBConfig extends Command
         }
 
         File::put($envPath, $envContent);
+    }
+
+    protected function createDatabaseIfNotExists($host, $port, $dbName, $username, $password)
+    {
+        try {
+            $dsn = "mysql:host=$host;port=$port";
+            $pdo = new PDO($dsn, $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;");
+            return true;
+        } catch (PDOException $e) {
+            $this->error($e->getMessage());
+            return false;
+        }
     }
 }

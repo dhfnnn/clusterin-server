@@ -63,7 +63,7 @@ class PhotoProfilec extends Controller
         ], 200);
     }
 
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $rules = [
             'user_token' => 'required|string'

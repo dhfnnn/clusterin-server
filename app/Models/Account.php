@@ -23,6 +23,7 @@ class Account extends Authenticatable
         'address', 
         'role', 
         'gender', 
+        'kepala_keluarga',
         'status_account'
     ];
 }

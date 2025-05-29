@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_token')->unique()->nullable();
             $table->string('nik')->unique();
             $table->string('whatsapp')->unique();
+            $table->string('kepala_keluarga')->nullable();
             $table->string('fullname');
             $table->string('address');
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->default('Laki-laki');

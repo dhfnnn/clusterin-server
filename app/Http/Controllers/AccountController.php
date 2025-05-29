@@ -18,11 +18,21 @@ class AccountController extends Controller
     {
         $request->validate([
             'user_token' => 'nullable|string',
+            'kepala_keluarga' => 'nullable|string',
+            'nik' => 'nullable|string',
         ]);
 
         $query = Account::query();
         if ($request->has('user_token') && $request->user_token) {
             $query->where('user_token', $request->user_token);
+            $data = $query->first();
+        }
+        if ($request->has('kepala_keluarga') && $request->kepala_keluarga) {
+            $query->where('kepala_keluarga', $request->kepala_keluarga);
+            $data = $query->get();
+        }
+        if ($request->has('nik') && $request->nik) {
+            $query->where('nik', $request->nik);
             $data = $query->first();
         }
         else{
@@ -85,6 +95,7 @@ class AccountController extends Controller
             'nik' => 'required|string|unique:account,nik',
             'password' => 'required',
             'role' => 'required|in:RT,Satpam,Warga',
+            'kepala_keluarga' => 'nullable|string',
             'gender' => 'required|in:Laki-laki,Perempuan',
             'status_account' => 'required|in:Pending,Active,Inactive'
         ];
@@ -101,6 +112,7 @@ class AccountController extends Controller
         $data->fullname = $request->fullname;
         $data->address = $request->address;
         $data->whatsapp = $request->whatsapp;
+        $data->kepala_keluarga = $request->kepala_keluarga;
         $data->nik = $request->nik;
         $data->password = Hash::make($request->password);
         $data->role = $request->role;
@@ -212,6 +224,7 @@ class AccountController extends Controller
             'fullname' => 'required|string|max:50',
             'address' => 'required|string|max:200',
             'nik' => 'required|string',
+            'whatsapp' => 'required|string',
             'gender' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:RT,Satpam,Warga',
             'status_account' => 'required|in:Pending,Active,Inactive'

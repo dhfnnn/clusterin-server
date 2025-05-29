@@ -137,6 +137,54 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    public function forgot(Request $request){
+        $rules = [
+            'user_token' => 'required|string'
+        ];
+        $validators = Validator::make($request->all(), $rules);
+        if($validators->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parameter user_token harus diisi',
+                'data' => $validators->errors()
+            ], 422);
+        }
+        $account = Account::where('user_token', $request->user_token)->first();
+        if (!$account) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Account Tidak Ditemukan',
+                'data' => null
+            ], 422);
+        }
+        $rule = [
+            'password' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kesalahan Parameter',
+                'data' => $validator->errors()
+            ], 422);
+        }
+        $data = Account::where('user_token', $request->user_token)->firstOrFail();
+        $data->password = $request->password;
+        $data->save();
+
+        if (!$data) {
+            return response()->json([
+                'success' => false,
+                'message' => "Update Account $request->nik Gagal",
+                'data' => null
+            ], 422);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Account Berhasil',
+            'data' => $data
+        ], 200);
+    }
     public function update(Request $request)
     {
         $rules = [
@@ -163,7 +211,6 @@ class AccountController extends Controller
         $rule = [
             'fullname' => 'required|string|max:50',
             'address' => 'required|string|max:200',
-            'whatsapp' => 'required|string',
             'nik' => 'required|string',
             'gender' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:RT,Satpam,Warga',
@@ -183,7 +230,6 @@ class AccountController extends Controller
         $data->address = $request->address;
         $data->whatsapp = $request->whatsapp;
         $data->nik = $request->nik;
-        $data->password = Hash::make($request->password);
         $data->role = $request->role;
         $data->gender = $request->gender;
         $data->status_account = $request->status_account;

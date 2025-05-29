@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\PhotoProfilec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +47,7 @@ Route::post('pengajuan/update', [PengajuanController::class, 'update'])->middlew
 Route::post('pengajuan/delete', [PengajuanController::class, 'delete'])->middleware('auth:sanctum');
 
 
-// 
+// PHOTO PROFILE
+Route::get('photo', [PhotoProfilec::class, 'read'])->middleware('auth:sanctum');
+Route::post('photo/create', [PhotoProfilec::class, 'create'])->middleware('auth:sanctum');
+Route::post('photo/delete', [PhotoProfilec::class, 'delete'])->middleware('auth:sanctum');

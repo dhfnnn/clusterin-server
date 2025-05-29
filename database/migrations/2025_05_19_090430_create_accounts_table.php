@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('account', function (Blueprint $table) {
             $table->id();
-            $table->string('user_token')->unique();
+            $table->string('user_token')->unique()->nullable();
             $table->string('nik')->unique();
             $table->string('whatsapp')->unique();
             $table->string('fullname');

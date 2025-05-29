@@ -32,6 +32,13 @@ class PhotoProfilec extends Controller
                 'data' => null
             ]);
         }
+        if(empty($data)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Photo Profile Tidak Ditemukan',
+                'data' => null
+            ]);
+        }
         return response()->json([
             'success' => true,
             'count' => $data->count(),

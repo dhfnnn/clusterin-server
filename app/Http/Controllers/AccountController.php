@@ -183,7 +183,7 @@ class AccountController extends Controller
         $data->address = $request->address;
         $data->whatsapp = $request->whatsapp;
         $data->nik = $request->nik;
-        $data->password = bcrypt($request->password);
+        $data->password = Hash::make($request->password);
         $data->role = $request->role;
         $data->gender = $request->gender;
         $data->status_account = $request->status_account;

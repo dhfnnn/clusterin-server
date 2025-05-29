@@ -16,7 +16,8 @@ class PengajuanController extends Controller
         $request->validate([
             'user_token' => 'nullable|string',
             'kategori' => 'nullable|in:Pengaduan,Permohonan',
-            'status' => 'nullable|in:Menunggu,Dilihat,Disetujui,Ditolak'
+            'status' => 'nullable|in:Menunggu,Dilihat,Disetujui,Ditolak',
+            'gets' => 'nullable|integer'
         ]);
 
         $query = Pengajuan::query();
@@ -29,8 +30,12 @@ class PengajuanController extends Controller
         if ($request->has('status') && $request->status) {
             $query->where('status', $request->status);
         }
-
-        $data = $query->OrderBy('id', 'desc')->get();
+        if ($request->has('gets') && $request->gets) {
+            $data = $query->OrderBy('id', 'desc')->first();
+        }
+        else{
+            $data = $query->OrderBy('id', 'desc')->get();
+        }
 
         if (!$data) {
             return response()->json([
@@ -39,7 +44,7 @@ class PengajuanController extends Controller
                 'data' => null
             ]);
         }
-        if ($data->isEmpty()) {
+        if (empty($data)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Tidak Ada Pengajuan yang Ditemukan',
@@ -50,6 +55,7 @@ class PengajuanController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Pengajuan Berhasil Didapatkan',
+            'count' => $data->count(),
             'data' => $data
         ]);
     }

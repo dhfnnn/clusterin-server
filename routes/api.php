@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 // ACCOUNT
 Route::get('account', [AccountController::class, 'read']);
-Route::post('account/login', [AccountController::class, 'login']);
+Route::post('account/signin', [AccountController::class, 'signin']);
 Route::post('account/create', [AccountController::class, 'create']);
 Route::post('account/update', [AccountController::class, 'update'])->middleware('auth:sanctum');
 Route::post('account/delete', [AccountController::class, 'delete'])->middleware('auth:sanctum');

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('whatsapp')->unique();
             $table->string('fullname');
             $table->string('address');
+            $table->enum('gender', ['Laki-laki', 'Perempuan'])->default('Laki-laki');
             $table->enum('role', ['RT', 'Satpam', 'Warga'])->default('Warga');
             $table->enum('status_account', ['Pending', 'Active', 'Inactive'])->default('Pending');
             $table->string('password');

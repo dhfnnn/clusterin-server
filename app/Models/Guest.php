@@ -9,5 +9,5 @@ class Guest extends Model
 {
     use HasFactory;
     protected $table = 'guest';
-    protected $fillable = ['fullname', 'destination_address', 'reason', 'checkin_date', 'checkout_date', 'status'];
+    protected $fillable = ['nik', 'fullname', 'address', 'destination', 'reason', 'checkin', 'checkout', 'whatsapp', 'status'];
 }

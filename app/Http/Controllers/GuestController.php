@@ -15,7 +15,8 @@ class GuestController extends Controller
     {
         $request->validate([
             'id' => 'nullable|string',
-            'status' => 'nullable|in:Masuk,Keluar'
+            'status' => 'nullable|in:Masuk,Keluar',
+            'gets' => 'nullable|integer'
         ]);
 
         $query = Guest::query();
@@ -25,8 +26,13 @@ class GuestController extends Controller
         if ($request->has('status') && $request->status) {
             $query->where('status', $request->status);
         }
-
-        $data = $query->orderBy('id', 'desc')->get();
+        
+        if ($request->has('gets') && $request->gets) {
+            $data = $query->OrderBy('id', 'desc')->first();
+        }
+        else{
+            $data = $query->OrderBy('id', 'desc')->get();
+        }
         
         if (!$data) {
             return response()->json([
@@ -35,7 +41,7 @@ class GuestController extends Controller
                 'data' => null
             ]);
         }
-        if ($data->isEmpty()) {
+        if (empty($data)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Tidak Ada Tamu yang Ditemukan',
@@ -45,6 +51,7 @@ class GuestController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Tamu Berhasil Didapatkan',
+            'count' => $data->count(),
             'data' => $data
         ]);
     }
@@ -55,11 +62,14 @@ class GuestController extends Controller
     public function create(Request $request)
     {
         $rule = [
+            'nik' => 'required|string',
             'fullname' => 'required|string',
-            'destination_address' => 'required|string',
+            'address' => 'required|string',
+            'destination' => 'required|string',
             'reason' => 'required|string',
-            'checkin_date' => 'nullable|string',
-            'checkout_date' => 'nullable|string',
+            'checkin' => 'required|string',
+            'checkout' => 'nullable|string',
+            'whatsapp' => 'required|string',
             'status' => 'required|in:Masuk,Keluar'
         ];
         $validator = Validator::make($request->all(), $rule);
@@ -72,11 +82,14 @@ class GuestController extends Controller
         }
 
         $data = new Guest();
+        $data->nik = $request->nik;
         $data->fullname = $request->fullname;
-        $data->destination_address = $request->destination_address;
+        $data->address = $request->address;
+        $data->destination = $request->destination;
         $data->reason = $request->reason;
-        $data->checkin_date = $request->checkin_date;
-        $data->checkout_date = $request->checkout_date;
+        $data->checkin = $request->checkin;
+        $data->checkout = $request->checkout;
+        $data->whatsapp = $request->whatsapp;
         $data->status = $request->status;
         $data->save();
 
@@ -112,6 +125,7 @@ class GuestController extends Controller
         }
 
         $rule = [
+            'checkout' => 'required|string',
             'status' => 'required|in:Masuk,Keluar'
         ];
         $validator = Validator::make($request->all(), $rule);
@@ -131,6 +145,7 @@ class GuestController extends Controller
                 'data' => null
             ], 422);
         }
+        $data->checkout = $request->checkout;
         $data->status = $request->status;
         $data->save();
         return response()->json([

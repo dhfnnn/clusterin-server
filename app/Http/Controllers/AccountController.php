@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use function Symfony\Component\String\b;
 
 class AccountController extends Controller
 {
@@ -35,12 +38,13 @@ class AccountController extends Controller
         }
         return response()->json([
             'success' => true,
+            'count' => $data->count(),
             'message' => 'Account Berhasil Didapatkan',
             'data' => $data
         ]);
     }
 
-    public function login(Request $request)
+    public function signin(Request $request)
     {
         $rule = [
             'nik' => 'required|string',
@@ -54,12 +58,12 @@ class AccountController extends Controller
                 'message' => $validator->errors()
             ], 401);
         }
-
-        $data = Account::where('nik', $request->nik)->where('password', md5($request->password))->first();
+        $getPass = Account::where('nik', $request->nik)->first();
+        $data = Account::where('nik', $request->nik)->where('password', Hash::check($request->password, $getPass->password))->first();
         if (!$data){
             return response()->json([
                 'success' => false,
-                'message' => 'Account Tidak Terdaftar'
+                'message' => 'Account Tidak Terdaftar, Cek kembali data anda'
             ], 401);
         }
         return response()->json([
@@ -81,6 +85,7 @@ class AccountController extends Controller
             'nik' => 'required|string|unique:account,nik',
             'password' => 'required',
             'role' => 'required|in:RT,Satpam,Warga',
+            'gender' => 'required|in:Laki-laki,Perempuan',
             'status_account' => 'required|in:Pending,Active,Inactive'
         ];
         $validator = Validator::make($request->all(), $rule);
@@ -97,8 +102,9 @@ class AccountController extends Controller
         $data->address = $request->address;
         $data->whatsapp = $request->whatsapp;
         $data->nik = $request->nik;
-        $data->password = md5($request->password);
+        $data->password = Hash::make($request->password);
         $data->role = $request->role;
+        $data->gender = $request->gender;
         $data->status_account = $request->status_account;
         $data->save();
 
@@ -159,7 +165,7 @@ class AccountController extends Controller
             'address' => 'required|string|max:200',
             'whatsapp' => 'required|string',
             'nik' => 'required|string',
-            'password' => 'required',
+            'gender' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:RT,Satpam,Warga',
             'status_account' => 'required|in:Pending,Active,Inactive'
         ];
@@ -179,6 +185,7 @@ class AccountController extends Controller
         $data->nik = $request->nik;
         $data->password = bcrypt($request->password);
         $data->role = $request->role;
+        $data->gender = $request->gender;
         $data->status_account = $request->status_account;
         $data->save();
 

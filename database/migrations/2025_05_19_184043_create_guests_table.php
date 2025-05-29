@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('guest', function (Blueprint $table) {
             $table->id();
+            $table->string('nik');
             $table->string('fullname');
-            $table->string('destination_address');
+            $table->string('address');
             $table->string('reason');
-            $table->string('checkin_date')->nullable();
-            $table->string('checkout_date')->nullable();
+            $table->string('destination');
+            $table->string('checkin');
+            $table->string('checkout')->nullable();
+            $table->string('whatsapp');
             $table->enum('status', ['Masuk', 'Keluar'])->default('Masuk');
             $table->timestamps();
         });

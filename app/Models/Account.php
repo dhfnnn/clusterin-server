@@ -22,6 +22,7 @@ class Account extends Authenticatable
         'fullname', 
         'address', 
         'role', 
+        'gender', 
         'status_account'
     ];
 }

@@ -3,4 +3,4 @@ date_default_timezone_set('Asia/Jakarta');
 
 shell_exec('git add .');
 shell_exec('git commit -m "'.date('Y-m-d H:i:s').'"');
-shell_exec('git push -u origin main');
+shell_exec('git push');

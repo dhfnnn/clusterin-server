@@ -19,7 +19,7 @@ class AccountController extends Controller
         $request->validate([
             'user_token' => 'nullable|string',
             'kepala_keluarga' => 'nullable|string',
-            'nik' => 'nullable|string',
+            'nik' => 'nullable|string'
         ]);
 
         $query = Account::query();
@@ -27,11 +27,11 @@ class AccountController extends Controller
             $query->where('user_token', $request->user_token);
             $data = $query->first();
         }
-        if ($request->has('kepala_keluarga') && $request->kepala_keluarga) {
+        elseif ($request->has('kepala_keluarga') && $request->kepala_keluarga) {
             $query->where('kepala_keluarga', $request->kepala_keluarga);
             $data = $query->get();
         }
-        if ($request->has('nik') && $request->nik) {
+        elseif ($request->has('nik') && $request->nik) {
             $query->where('nik', $request->nik);
             $data = $query->first();
         }
@@ -227,7 +227,9 @@ class AccountController extends Controller
             'whatsapp' => 'required|string',
             'gender' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:RT,Satpam,Warga',
+            'kepala_keluarga' => 'required|string',
             'status_account' => 'required|in:Pending,Active,Inactive'
+
         ];
         $validator = Validator::make($request->all(), $rule);
         if ($validator->fails()) {
@@ -245,6 +247,7 @@ class AccountController extends Controller
         $data->nik = $request->nik;
         $data->role = $request->role;
         $data->gender = $request->gender;
+        $data->kepala_keluarga = $request->kepala_keluarga;
         $data->status_account = $request->status_account;
         $data->save();
 
